@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Health Vitals Calculators | MediCare+</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Emergency Alert Bar -->
+  <div class="emergency-bar">
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+      <span>🚨 <strong>Preventive Healthcare:</strong> Regular tracking of basic physiological metrics aids early detection.</span>
+      <span>Helpline: <a href="tel:1800123456">1800-123-456</a></span>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo">
+        <img src="images/logo.svg" alt="MediCare+ Logo" class="logo-img">
+        <span>Medi<span>Care+</span></span>
+      </a>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="symptom-checker.html">Symptom Checker</a></li>
+        <li><a href="doctors.html">Find Doctors</a></li>
+        <li><a href="appointments.html">Appointments</a></li>
+        <li><a href="vitals-calculator.html" class="active">Health Vitals</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button id="themeToggle" class="theme-btn" title="Toggle Dark/Light Mode" aria-label="Toggle Theme">🌙</button>
+        <a href="appointments.html" class="btn btn-primary btn-sm">Book Visit</a>
+        <button id="mobileToggle" class="mobile-toggle" aria-label="Open Navigation">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main style="padding: 3rem 0;">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Biometric Analytics</span>
+        <h1 class="section-title">Personal Health Vitals Calculators</h1>
+        <p class="section-desc">
+          Compute your Body Mass Index, calculate daily hydration requirements, and estimate your daily caloric energy expenditure.
+        </p>
+      </div>
+
+      <!-- Calculators Grid -->
+      <div class="vitals-grid">
+        <!-- 1. BMI Calculator -->
+        <div class="vital-card">
+          <div class="card-icon">⚖️</div>
+          <h3>Body Mass Index (BMI)</h3>
+          <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.25rem;">
+            Assess body weight relative to height based on World Health Organization (WHO) ranges.
+          </p>
+
+          <form id="bmiForm">
+            <div class="form-group">
+              <label for="bmiWeight">Weight (kg) *</label>
+              <input type="number" id="bmiWeight" class="form-control" placeholder="e.g. 68" step="0.1" required>
+            </div>
+
+            <div class="form-group">
+              <label for="bmiHeight">Height (cm) *</label>
+              <input type="number" id="bmiHeight" class="form-control" placeholder="e.g. 172" step="0.5" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%;">
+              Calculate BMI
+            </button>
+          </form>
+
+          <div id="bmiResultBox" class="vital-result" style="display: none;">
+            <span style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase;">Your Score</span>
+            <div class="vital-number" id="bmiScore">22.4</div>
+            <div class="vital-status" id="bmiStatus">Healthy Weight</div>
+
+            <div class="gauge-bar" title="BMI Spectrum">
+              <div class="gauge-seg under" title="Underweight (&lt; 18.5)"></div>
+              <div class="gauge-seg normal" title="Normal (18.5 - 24.9)"></div>
+              <div class="gauge-seg over" title="Overweight (25 - 29.9)"></div>
+              <div class="gauge-seg obese" title="Obese (≥ 30)"></div>
+            </div>
+
+            <p id="bmiAdvice" style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; margin-top: 0.5rem;"></p>
+          </div>
+        </div>
+
+        <!-- 2. Water Intake Calculator -->
+        <div class="vital-card">
+          <div class="card-icon blue">💧</div>
+          <h3>Daily Water Intake</h3>
+          <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.25rem;">
+            Calculate recommended daily fluid hydration based on body mass and activity routine.
+          </p>
+
+          <form id="waterForm">
+            <div class="form-group">
+              <label for="waterWeight">Body Weight (kg) *</label>
+              <input type="number" id="waterWeight" class="form-control" placeholder="e.g. 65" step="0.5" required>
+            </div>
+
+            <div class="form-group">
+              <label for="waterActivity">Daily Activity Level</label>
+              <select id="waterActivity" class="form-control">
+                <option value="sedentary">Sedentary (Desk Job / Normal)</option>
+                <option value="moderate" selected>Moderate (30-45 mins workout)</option>
+                <option value="active">Active (Heavy Exercise / Outdoor)</option>
+              </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%;">
+              Calculate Hydration Target
+            </button>
+          </form>
+
+          <div id="waterResultBox" class="vital-result" style="display: none;">
+            <span style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase;">Daily Recommended</span>
+            <div class="vital-number" id="waterScore" style="font-size: 2.1rem;">2.5 Liters / day</div>
+            <p id="waterGlasses" style="font-size: 0.9rem; font-weight: 600; color: var(--secondary); margin-bottom: 0.5rem;"></p>
+            <p style="font-size: 0.8rem; color: var(--text-muted);">
+              Hydration supports kidney filtration, cognitive performance, and joint lubrication.
+            </p>
+          </div>
+        </div>
+
+        <!-- 3. Caloric Need & BMR Calculator -->
+        <div class="vital-card">
+          <div class="card-icon amber">🔥</div>
+          <h3>Daily Calorie (TDEE) Target</h3>
+          <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.25rem;">
+            Estimates basal metabolic rate and daily energy requirement using the Mifflin-St Jeor formula.
+          </p>
+
+          <form id="calorieForm">
+            <div class="form-group">
+              <label>Gender *</label>
+              <div style="display: flex; gap: 1rem; margin-top: 0.25rem;">
+                <label style="display: flex; align-items: center; gap: 0.35rem; font-weight: normal; cursor: pointer;">
+                  <input type="radio" name="gender" value="male" checked> Male
+                </label>
+                <label style="display: flex; align-items: center; gap: 0.35rem; font-weight: normal; cursor: pointer;">
+                  <input type="radio" name="gender" value="female"> Female
+                </label>
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+              <div class="form-group">
+                <label for="calAge">Age (Years) *</label>
+                <input type="number" id="calAge" class="form-control" placeholder="21" required>
+              </div>
+              <div class="form-group">
+                <label for="calWeight">Weight (kg) *</label>
+                <input type="number" id="calWeight" class="form-control" placeholder="68" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="calHeight">Height (cm) *</label>
+              <input type="number" id="calHeight" class="form-control" placeholder="172" required>
+            </div>
+
+            <div class="form-group">
+              <label for="calActivity">Lifestyle Activity Level</label>
+              <select id="calActivity" class="form-control">
+                <option value="1.2">Sedentary (Little or no exercise)</option>
+                <option value="1.375" selected>Lightly Active (Exercise 1-3 days/week)</option>
+                <option value="1.55">Moderately Active (Exercise 3-5 days/week)</option>
+                <option value="1.725">Very Active (Heavy training 6-7 days/week)</option>
+              </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%;">
+              Estimate Calories
+            </button>
+          </form>
+
+          <div id="calorieResultBox" class="vital-result" style="display: none; text-align: left;">
+            <div style="display: flex; justify-content: space-between; border-bottom: 1px dashed var(--border); padding-bottom: 0.5rem; margin-bottom: 0.5rem;">
+              <span>Maintain Weight:</span>
+              <strong id="calMaintain" style="color: var(--primary);">2,150 kcal</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between; border-bottom: 1px dashed var(--border); padding-bottom: 0.5rem; margin-bottom: 0.5rem;">
+              <span>Healthy Weight Loss:</span>
+              <strong id="calLoss" style="color: #38bdf8;">1,700 kcal</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+              <span>Weight Gain / Muscle:</span>
+              <strong id="calGain" style="color: #f59e0b;">2,550 kcal</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Global Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-bottom" style="border: none; padding-top: 0;">
+        <p>&copy; <span id="currentYear"></span> MediCare+ Health Portal. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/vitals.js"></script>
+</body>
+</html>

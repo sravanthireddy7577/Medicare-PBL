@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Symptom Triage Checker | MediCare+</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Emergency Alert Bar -->
+  <div class="emergency-bar">
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+      <span>🚨 <strong>In case of sudden severe chest pressure, unconsciousness, or stroke signs:</strong> Call <strong>108</strong> immediately.</span>
+      <span>Helpline: <a href="tel:1800123456">1800-123-456</a></span>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo">
+        <img src="images/logo.svg" alt="MediCare+ Logo" class="logo-img">
+        <span>Medi<span>Care+</span></span>
+      </a>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="symptom-checker.html" class="active">Symptom Checker</a></li>
+        <li><a href="doctors.html">Find Doctors</a></li>
+        <li><a href="appointments.html">Appointments</a></li>
+        <li><a href="vitals-calculator.html">Health Vitals</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button id="themeToggle" class="theme-btn" title="Toggle Dark/Light Mode" aria-label="Toggle Theme">🌙</button>
+        <a href="appointments.html" class="btn btn-primary btn-sm">Book Visit</a>
+        <button id="mobileToggle" class="mobile-toggle" aria-label="Open Navigation">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main style="padding: 3rem 0;">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Clinical Triage Engine</span>
+        <h1 class="section-title">Interactive Health Assessment</h1>
+        <p class="section-desc">
+          Answer a few quick questions regarding your physical symptoms to receive a weighted medical triage level and specialist consultation guidance.
+        </p>
+      </div>
+
+      <!-- Multi-step Wizard Card -->
+      <div class="wizard-container">
+        <!-- Progress Indicator -->
+        <div class="wizard-steps-indicator">
+          <div class="step-indicator active" id="stepIndicator1">1</div>
+          <div class="step-indicator" id="stepIndicator2">2</div>
+          <div class="step-indicator" id="stepIndicator3">3</div>
+        </div>
+
+        <form id="triageForm" onsubmit="return false;">
+          <!-- Step 1: Patient Profile -->
+          <div class="wizard-pane active" id="stepPane1">
+            <h3 style="margin-bottom: 0.5rem; font-size: 1.3rem;">Step 1: Patient Information</h3>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">
+              Basic profile helps calibrate symptom severity thresholds.
+            </p>
+
+            <div class="form-group">
+              <label for="patientAge">Patient Age (Years) *</label>
+              <input type="number" id="patientAge" class="form-control" placeholder="e.g. 21" min="1" max="120" required>
+            </div>
+
+            <div class="form-group">
+              <label>Biological Gender *</label>
+              <div style="display: flex; gap: 1.5rem; margin-top: 0.5rem;">
+                <label style="display: flex; align-items: center; gap: 0.4rem; font-weight: normal; cursor: pointer;">
+                  <input type="radio" name="patientGender" value="male" checked> Male
+                </label>
+                <label style="display: flex; align-items: center; gap: 0.4rem; font-weight: normal; cursor: pointer;">
+                  <input type="radio" name="patientGender" value="female"> Female
+                </label>
+                <label style="display: flex; align-items: center; gap: 0.4rem; font-weight: normal; cursor: pointer;">
+                  <input type="radio" name="patientGender" value="other"> Other
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Pre-Existing Medical History (Optional)</label>
+              <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 0.5rem;">
+                <label style="display: flex; align-items: center; gap: 0.4rem; font-size: 0.85rem; cursor: pointer;">
+                  <input type="checkbox" value="hypertension"> Hypertension (High BP)
+                </label>
+                <label style="display: flex; align-items: center; gap: 0.4rem; font-size: 0.85rem; cursor: pointer;">
+                  <input type="checkbox" value="diabetes"> Diabetes Mellitus
+                </label>
+                <label style="display: flex; align-items: center; gap: 0.4rem; font-size: 0.85rem; cursor: pointer;">
+                  <input type="checkbox" value="asthma"> Asthma / Respiratory
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 2: Symptoms Selection -->
+          <div class="wizard-pane" id="stepPane2">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <h3 style="margin-bottom: 0.35rem; font-size: 1.3rem;">Step 2: Select Your Symptoms</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">
+                  Click on the cards that match what you are currently experiencing.
+                </p>
+              </div>
+              <span id="selectedCountText" style="font-size: 0.85rem; font-weight: 700; color: var(--primary);">0 symptoms selected</span>
+            </div>
+
+            <div class="symptoms-grid" id="symptomsListContainer">
+              <!-- Dynamically populated from data.js -->
+            </div>
+          </div>
+
+          <!-- Step 3: Duration & Pain Severity -->
+          <div class="wizard-pane" id="stepPane3">
+            <h3 style="margin-bottom: 0.5rem; font-size: 1.3rem;">Step 3: Duration & Intensity</h3>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">
+              Provide timeline details to help evaluate urgency.
+            </p>
+
+            <div class="form-group">
+              <label for="symptomDuration">How long have you had these symptoms?</label>
+              <select id="symptomDuration" class="form-control">
+                <option value="<24hrs">Less than 24 hours (Sudden Onset)</option>
+                <option value="1-3days" selected>1 to 3 days</option>
+                <option value="1week">Around 1 week</option>
+                <option value="2weeks+">More than 2 weeks (Chronic / Persistent)</option>
+              </select>
+            </div>
+
+            <div class="severity-slider-container">
+              <label style="display: flex; justify-content: space-between; font-weight: 600; font-size: 0.95rem; margin-bottom: 0.75rem;">
+                <span>Discomfort / Pain Severity Level:</span>
+                <span style="color: var(--primary); font-weight: 800; font-size: 1.2rem;" id="severityValue">5</span>/10
+              </label>
+              <input type="range" min="1" max="10" value="5" class="range-slider" id="severitySlider">
+              <div class="severity-labels">
+                <span>1 - Mild Discomfort</span>
+                <span>5 - Moderate Disturbance</span>
+                <span>10 - Unbearable / Severe Pain</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 4: Diagnostic Triage Report -->
+          <div class="wizard-pane" id="stepPane4">
+            <div id="triageResultCard" class="triage-result-card">
+              <div id="triageBadge" class="triage-badge">Triage Status</div>
+              <h2 id="triageTitle" style="margin-bottom: 0.75rem; font-size: 1.5rem;">Assessment Summary</h2>
+              <p id="triageDescription" style="font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.25rem;">
+                Evaluation result text will appear here.
+              </p>
+              <div id="triageDeptRecommendation" style="padding: 0.85rem 1rem; background: var(--bg-card); border-radius: var(--radius-md); border: 1px solid var(--border); margin-bottom: 1.5rem; font-size: 0.95rem;">
+                Recommended Specialist: <strong>General Medicine</strong>
+              </div>
+
+              <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                <a id="triageBookingCTA" href="appointments.html" class="btn btn-primary">
+                  Book Doctor Consultation →
+                </a>
+                <button type="button" id="wizardRestartBtn" class="btn btn-outline" style="display: none;">
+                  🔄 Start New Assessment
+                </button>
+              </div>
+            </div>
+
+            <div style="padding: 1rem; background: var(--bg-input); border-radius: var(--radius-md); border: 1px dashed var(--border); font-size: 0.8rem; color: var(--text-muted);">
+              <strong>Disclaimer:</strong> This triage checker uses clinical algorithmic weighting intended solely for academic/informational purposes and does NOT replace professional medical diagnosis. In case of emergency, contact local emergency services immediately.
+            </div>
+          </div>
+
+          <!-- Wizard Action Buttons -->
+          <div style="display: flex; justify-content: space-between; margin-top: 2rem; border-top: 1px solid var(--border); padding-top: 1.5rem;">
+            <button type="button" id="wizardPrevBtn" class="btn btn-outline" style="display: none;">
+              ← Previous
+            </button>
+            <button type="button" id="wizardNextBtn" class="btn btn-primary" style="margin-left: auto;">
+              Next Step →
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <!-- Global Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-bottom" style="border: none; padding-top: 0;">
+        <p>&copy; <span id="currentYear"></span> MediCare+ Health Portal. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/symptom-checker.js"></script>
+</body>
+</html>

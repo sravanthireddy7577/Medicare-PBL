@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OPD Appointments & Passes | MediCare+</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Emergency Alert Bar -->
+  <div class="emergency-bar">
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+      <span>🚨 <strong>Instant OPD Booking:</strong> Same-day & advance doctor consultation appointments.</span>
+      <span>Helpline: <a href="tel:1800123456">1800-123-456</a></span>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo">
+        <img src="images/logo.svg" alt="MediCare+ Logo" class="logo-img">
+        <span>Medi<span>Care+</span></span>
+      </a>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="symptom-checker.html">Symptom Checker</a></li>
+        <li><a href="doctors.html">Find Doctors</a></li>
+        <li><a href="appointments.html" class="active">Appointments</a></li>
+        <li><a href="vitals-calculator.html">Health Vitals</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button id="themeToggle" class="theme-btn" title="Toggle Dark/Light Mode" aria-label="Toggle Theme">🌙</button>
+        <a href="appointments.html" class="btn btn-primary btn-sm">Book Visit</a>
+        <button id="mobileToggle" class="mobile-toggle" aria-label="Open Navigation">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main style="padding: 3rem 0;">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Digital Appointment Desk</span>
+        <h1 class="section-title">Schedule Doctor Consultations</h1>
+        <p class="section-desc">
+          Reserve your preferred time slot, track existing bookings, and generate instant verification passes for smooth hospital entry.
+        </p>
+      </div>
+
+      <!-- Two-Column Layout -->
+      <div class="appointment-layout">
+        <!-- Left: Booking Form -->
+        <div class="feature-card" style="padding: 2.25rem;">
+          <h2 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+            <span>📝</span> Book Consultation Slot
+          </h2>
+          <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.5rem;">
+            Fill in your patient details and pick your convenient consultation time.
+          </p>
+
+          <form id="appointmentBookingForm">
+            <div class="form-group">
+              <label for="patientName">Patient Full Name *</label>
+              <input type="text" id="patientName" class="form-control" placeholder="e.g. Sravanthi Y" required>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div class="form-group">
+                <label for="patientPhone">Mobile Number *</label>
+                <input type="tel" id="patientPhone" class="form-control" placeholder="+91 98765 43210" required>
+              </div>
+
+              <div class="form-group">
+                <label for="patientEmail">Email Address</label>
+                <input type="email" id="patientEmail" class="form-control" placeholder="patient@example.com">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="bookingDepartment">Medical Specialty *</label>
+              <select id="bookingDepartment" class="form-control" required>
+                <!-- Populated via js/appointments.js -->
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="bookingDoctor">Consulting Physician *</label>
+              <select id="bookingDoctor" class="form-control" required>
+                <option value="">-- Select department first --</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="bookingDate">Appointment Date *</label>
+              <input type="date" id="bookingDate" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+              <label>Select Time Slot *</label>
+              <div class="slots-grid" id="timeSlotsContainer">
+                <span style="color: var(--text-muted); font-size: 0.85rem;">Please select a doctor above to load slots.</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="bookingReason">Reason for Consultation / Chief Symptoms</label>
+              <textarea id="bookingReason" class="form-control" rows="2" placeholder="Briefly describe what you would like to discuss with the doctor..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">
+              Confirm Booking & Generate Pass →
+            </button>
+          </form>
+        </div>
+
+        <!-- Right: My Bookings Dashboard -->
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+            <h2 style="font-size: 1.35rem; font-weight: 700; display: flex; align-items: center; gap: 0.5rem;">
+              <span>🗓️</span> My Appointments
+            </h2>
+            <span style="font-size: 0.8rem; color: var(--text-muted);">Saved in local session</span>
+          </div>
+
+          <div class="appointments-list" id="appointmentsListContainer">
+            <!-- Dynamically populated via js/appointments.js -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Hospital Pass / Appointment Slip Modal -->
+  <div class="modal-overlay" id="slipModal">
+    <div class="modal-content">
+      <button class="modal-close" id="closeSlipModal" aria-label="Close Modal">&times;</button>
+      
+      <div id="appointmentSlipContent">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 1rem; margin-top: 1.25rem;">
+        <button type="button" class="btn btn-outline" onclick="document.getElementById('slipModal').classList.remove('active')">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary" id="printSlipBtn">
+          🖨️ Print / Save Pass (PDF)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Global Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-bottom" style="border: none; padding-top: 0;">
+        <p>&copy; <span id="currentYear"></span> MediCare+ Health Portal. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/appointments.js"></script>
+</body>
+</html>

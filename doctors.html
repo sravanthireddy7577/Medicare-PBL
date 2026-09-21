@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doctor Directory | MediCare+</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Emergency Alert Bar -->
+  <div class="emergency-bar">
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+      <span>🚨 <strong>OPD Desk Open Today:</strong> Over 150+ verified specialists on duty across affiliated hospital wings.</span>
+      <span>Helpline: <a href="tel:1800123456">1800-123-456</a></span>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo">
+        <img src="images/logo.svg" alt="MediCare+ Logo" class="logo-img">
+        <span>Medi<span>Care+</span></span>
+      </a>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="symptom-checker.html">Symptom Checker</a></li>
+        <li><a href="doctors.html" class="active">Find Doctors</a></li>
+        <li><a href="appointments.html">Appointments</a></li>
+        <li><a href="vitals-calculator.html">Health Vitals</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button id="themeToggle" class="theme-btn" title="Toggle Dark/Light Mode" aria-label="Toggle Theme">🌙</button>
+        <a href="appointments.html" class="btn btn-primary btn-sm">Book Visit</a>
+        <button id="mobileToggle" class="mobile-toggle" aria-label="Open Navigation">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main style="padding: 3rem 0;">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Verified Medical Consultants</span>
+        <h1 class="section-title">Find Your Specialist Doctor</h1>
+        <p class="section-desc">
+          Browse verified physicians, check credentials and patient feedback ratings, and schedule your appointment instantly.
+        </p>
+      </div>
+
+      <!-- Live Search & Filter Bar -->
+      <div class="filter-bar">
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="doctorSearchInput" placeholder="Search by doctor name, qualification, or hospital..." aria-label="Search Doctors">
+        </div>
+
+        <div class="pill-filters" id="departmentPillsContainer">
+          <!-- Dynamically populated filter pills -->
+        </div>
+      </div>
+
+      <!-- Results Count Bar -->
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <span id="doctorResultsCount" style="font-size: 0.9rem; font-weight: 600; color: var(--text-muted);">Showing specialists</span>
+        <span style="font-size: 0.85rem; color: var(--success); font-weight: 600;">● Online Slot Booking Available</span>
+      </div>
+
+      <!-- Doctors Grid -->
+      <div class="doctors-grid" id="doctorsGridContainer">
+        <!-- Rendered via js/doctors.js -->
+      </div>
+    </div>
+  </main>
+
+  <!-- Global Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-bottom" style="border: none; padding-top: 0;">
+        <p>&copy; <span id="currentYear"></span> MediCare+ Health Portal. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/doctors.js"></script>
+</body>
+</html>
