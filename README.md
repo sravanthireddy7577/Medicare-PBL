@@ -1,5 +1,22 @@
 # MediCare+ | Smart Digital Healthcare & Symptom Triage Portal
-### Web Technologies Project-Based Learning (PBL) Submission
+### Web Technologies (22IT104001) — Project-Based Learning (PBL) Report
+**Mohan Babu University (MBU), Tirupati** | **School of Computing — Department of CSE** | **2025-2026**
+
+---
+
+### 👥 Project Team
+| Student Name | Roll / Registration Number | Department |
+| :--- | :--- | :--- |
+| **SRAVANTHI** | `24102A040629` | B.Tech CSE, School of Computing |
+| **REKHA** | `24102A040623` | B.Tech CSE, School of Computing |
+| **VYSHNAVI** | `24102A040619` | B.Tech CSE, School of Computing |
+
+- **Faculty Supervisor:** **PATAN FERIDOZ KHAN M.Tech(Ph.D)**, Assistant Professor, Dept. of CSE
+- **Head of Department:** **Dr. G. Sunitha**, Professor & Head, Dept. of CSE
+- **Official Documentation:**
+  - 📄 **[Download Official 45-Page PBL Report (PDF)](./PBL_Project_Report.pdf)**
+  - 🌐 **[View Interactive A4 Printable Report (HTML)](./PBL_Project_Report.html)**
+  - 📝 **[Full Markdown Report](./PBL_Project_Report.md)**
 
 ---
 
